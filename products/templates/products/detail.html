@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+{% load static %}
+<link rel="stylesheet" href="{% static 'products/style.css' %}">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+<div class="solo-card" style="width: 18rem;">
+    <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
+    <div class="card-body">
+        <a href="{% url 'products:detail' product.id %}" class="fill-div"> {{ product.name }}</a>
+        <p class="card-text">{{ product.description }}</p>
+        <p class="card-text">Price - {{ product.price }}</p>
+        <a href="{% url 'mycart:cart_add' product.id %}" class="btn btn-primary">Buy Now</a>
+    </div>
+</div>
+</body>
+</html>

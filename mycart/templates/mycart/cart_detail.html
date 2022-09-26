@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="{% url 'products:base' %}" class="btn btn-info topcorner">Back to products</a>
+{% load cart_tag %}
+{% for key,value in request.session.cart.items %}
+    <form name="ShoppingList">
+        <fieldset>
+            <legend>Shopping cart {{ value.id }}</legend>
+            <label>Item: {{ value.name }}</label>
+            <label>Quantity: {{ value.quantity }}</label>
+            <label>Price: {{ value.price }}</label>
+            <a href="{% url 'mycart:item_clear' key %}" class="btn btn-primary">Remove</a>
+        </fieldset>
+    </form>
+{% endfor %}
+</body>
+</html>

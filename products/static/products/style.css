@@ -1,0 +1,23 @@
+#my-div {
+    background-color: #f00;
+    width: 200px;
+    height: 200px;
+}
+a.fill-div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+}
+.card{
+    margin-top: 50px;
+    margin-left: 100px;
+}
+.solo-card{
+    align-: center;
+}
+.topcorner{
+   position:absolute;
+   top:0;
+   right:0;
+  }
