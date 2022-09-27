@@ -6,7 +6,7 @@ from products.models import Product
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 
-@login_required(login_url="/users/login")
+@login_required()
 def cart_add(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
@@ -14,7 +14,7 @@ def cart_add(request, id):
     return redirect("/products")
 
 
-@login_required(login_url="/users/login")
+@login_required()
 def item_clear(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
@@ -22,7 +22,7 @@ def item_clear(request, id):
     return redirect("cart_detail")
 
 
-@login_required(login_url="/users/login")
+@login_required()
 def item_increment(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
@@ -30,7 +30,7 @@ def item_increment(request, id):
     return redirect("cart_detail")
 
 
-@login_required(login_url="/users/login")
+@login_required()
 def item_decrement(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
@@ -38,13 +38,13 @@ def item_decrement(request, id):
     return redirect("cart_detail")
 
 
-@login_required(login_url="/users/login")
+@login_required()
 def cart_clear(request):
     cart = Cart(request)
     cart.clear()
     return redirect("cart_detail")
 
 
-@login_required(login_url="/users/login")
+@login_required()
 def cart_detail(request):
     return render(request, 'mycart/cart_detail.html')
