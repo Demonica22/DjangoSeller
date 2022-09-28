@@ -9,6 +9,7 @@
 <body>
 
 <a href="{% url 'mycart:cart_detail' %}" class="btn btn-info topcorner">Cart {{cart_size}}</a>
+<a href="{% url 'login' %}" class="btn btn-info"> Login</a>
 {% for product in all_products_list %}
     <div class="card" style="width: 18rem;">
         <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
