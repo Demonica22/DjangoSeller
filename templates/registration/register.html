@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form class="login-form" method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group position-relative">
+                <label>Username <span class="text-danger">*</span></label>
+                {{ form.username }}
+            </div>
+            {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col-md-12">
+            <div class="form-group position-relative">
+                <label>Password <span class="text-danger">*</span></label>
+                {{ form.password1 }}
+            </div>
+            {% if form.password1.errors %}
+                {% for error in form.password1.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col-md-12">
+            <div class="form-group position-relative">
+                <label>Confirm Password <span class="text-danger">*</span></label>
+                {{ form.password2 }}
+            </div>
+            {% if form.password2.errors %}
+                {% for error in form.password2.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col-md-12">
+            <button class="btn btn-primary w-100" type="submit">Register</button>
+        </div>
+        <div class="mx-auto">
+            <p class="mb-0 mt-3"><small class="text-dark mr-2">Already have an account ?</small> <a
+                    href="{% url 'login' %}" class="text-dark font-weight-bold">Sign in</a></p>
+        </div>
+    </div>
+</form>
+</body>
+</html>

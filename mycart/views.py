@@ -11,6 +11,7 @@ def cart_add(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
     cart.add(product=product)
+    print(request.session.values())
     return redirect("/products")
 
 
