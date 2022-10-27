@@ -34,3 +34,7 @@ class DetailView(generic.DetailView):
         Excludes any questions that aren't published yet.
         """
         return Product.objects.all()
+
+
+def test_view(request):
+    print(request)
