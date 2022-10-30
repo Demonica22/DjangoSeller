@@ -1,10 +1,11 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .models import Product
 from cart.cart import Cart
+from users.models import User
 
 
 # Create your views here.
@@ -22,8 +23,6 @@ class BaseView(generic.ListView):
         for item in items:
             quantity += item[1]["quantity"]
         context_data['cart_size'] = quantity
-        print(context_data)
-        #context_data['is_au'] = req
         return context_data
 
 
@@ -38,5 +37,15 @@ class DetailView(generic.DetailView):
         return Product.objects.all()
 
 
-def test_view(request):
-    print(request)
+def add_to_favourite(request, user_id, product_id):
+    user = User.objects.get(id=user_id)
+    product = Product.objects.get(id=product_id)
+    user.favourite_products.add(product)
+    return redirect("products:base")
+
+
+def favourite_products_page(request, user_id):
+    template = 'products/favourite.html'
+    favourite_products = Product.objects.select_related().get(id=user_id)
+    print(favourite_products)
+    return render(request, template, {'favourite': favourite_products})

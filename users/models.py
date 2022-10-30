@@ -3,6 +3,7 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import AbstractUser
 from .managers import UserManager
+from products.models import Product
 
 
 class User(AbstractUser):
@@ -13,6 +14,8 @@ class User(AbstractUser):
     mobile = PhoneNumberField(null=False, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    favourite_products = models.ManyToManyField(Product, default=None,blank=True)
+
     is_staff = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -35,3 +38,5 @@ class User(AbstractUser):
         Returns the short name for the user.
         """
         return self.first_name
+
+
