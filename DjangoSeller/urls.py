@@ -18,18 +18,12 @@ from django.shortcuts import redirect
 from django.urls import path, include
 from django.conf.urls.static import static
 from . import settings
-from django.views.generic.edit import CreateView
-from django.contrib.auth.forms import UserCreationForm
 
 urlpatterns = [
     path('products/', include('products.urls')),
     path('admin/', admin.site.urls),
     path('cart/', include('mycart.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/register/', CreateView.as_view(
-        template_name='registration/register.html',
-        form_class=UserCreationForm,
-        success_url='accounts/login'), name="register"),
+    path('users/', include('users.urls'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

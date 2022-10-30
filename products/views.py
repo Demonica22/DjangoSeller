@@ -22,6 +22,8 @@ class BaseView(generic.ListView):
         for item in items:
             quantity += item[1]["quantity"]
         context_data['cart_size'] = quantity
+        print(context_data)
+        #context_data['is_au'] = req
         return context_data
 
 

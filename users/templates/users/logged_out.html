@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Done</title>
+    <title>Log out</title>
 </head>
 <body>
 {% block content %}
+<p>Logged out!</p>
 
-    <h1>The password has been changed!</h1>
-    <p><a href="{% url 'login' %}">log in again?</a></p>
-
+<a href="{% url 'users:login'%}">Click here to login again.</a>
 {% endblock %}
 </body>
 </html>
