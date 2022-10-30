@@ -36,7 +36,11 @@ def item_decrement(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
     cart.decrement(product=product)
-    return redirect("cart_detail")
+    for key, value in cart.cart.copy().items():
+        if value["quantity"] <= 0:
+            product = Product.objects.get(id=value['product_id'])
+            cart.remove(product)
+    return redirect("cart:cart_detail")
 
 
 @login_required()

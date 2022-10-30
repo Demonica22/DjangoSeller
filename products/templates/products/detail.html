@@ -15,7 +15,7 @@
         <a href="{% url 'products:detail' product.id %}" class="fill-div"> {{ product.name }}</a>
         <p class="card-text">{{ product.description }}</p>
         <p class="card-text">Price - {{ product.price }}</p>
-        <a href="{% url 'mycart:cart_add' product.id %}" class="btn btn-primary">Buy Now</a>
+        <a href="{% url 'cart:cart_add' product.id %}" class="btn btn-primary">Buy Now</a>
     </div>
 </div>
 </body>

@@ -8,4 +8,6 @@ urlpatterns = [
     path('<int:pk>', views.DetailView.as_view(), name='detail'),
     path('add_to_favourite/<int:user_id>/<int:product_id>', views.add_to_favourite, name="add_to_favourite"),
     path('favourite/<int:user_id>', views.favourite_products_page, name="favourite"),
+    path('remove_from_favourite/<int:user_id>/<int:product_id>', views.remove_from_favourite,
+         name="remove_from_favourite"),
 ]
