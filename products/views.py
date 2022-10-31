@@ -37,20 +37,20 @@ class DetailView(generic.DetailView):
         return Product.objects.all()
 
 
-def add_to_favourite(request, user_id, product_id):
+def add_to_favourite(request, user_id, product_id, next):
     user = User.objects.get(id=user_id)
     product = Product.objects.get(id=product_id)
     user.favourite_products.add(product)
-    return redirect("products:base")
+    return redirect(next)
 
 
-def remove_from_favourite(request, user_id, product_id):
+def remove_from_favourite(request, user_id, product_id, next):
     user = User.objects.get(id=user_id)
     product = Product.objects.get(id=product_id)
     print(product)
     user.favourite_products.remove(product)
     print(user)
-    return redirect('products:favourite', user_id=user_id)
+    return redirect(next)
 
 
 def favourite_products_page(request, user_id):

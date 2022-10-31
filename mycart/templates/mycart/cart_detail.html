@@ -25,7 +25,7 @@
         <img class="card-img-top" src="{{ value.image }}" alt="Card image cap">
         <div class="card-body">
             <a href="{% url 'products:detail' value.product_id %}" class="fill-div"> {{ value.name }}</a>
-            <p class="card-text">{{ value.description }}</p>
+            <p class="card-text">{{ value.quantity }}</p>
             <p class="card-text">Price - {{ value.price }}</p>
             <a href="{% url 'cart:item_decrement' value.product_id %}" class="btn btn-danger">-1</a>
         </div>

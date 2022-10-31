@@ -1,6 +1,6 @@
 #my-div {
     background-color: #f00;
-    width: 200px;
+    width: 300px;
     height: 200px;
 }
 a.fill-div {
@@ -13,14 +13,8 @@ a.fill-div {
     margin-top: 50px;
     margin-left: 100px;
 }
-.solo-card{
-    align-: center;
-}
-.topcorner{
-   position:absolute;
-   top:0;
-   right:0;
-  }
+
+
 .login{
     position:absolute;
    top:0;
@@ -55,4 +49,7 @@ a.fill-div {
 .topnav a.active {
     background-color: #4CAF50;
     color: white;
+}
+.div-inline{
+    display: inline;
 }

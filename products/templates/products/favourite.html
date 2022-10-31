@@ -27,7 +27,8 @@
             <p class="card-text">{{ product.description }}</p>
             <p class="card-text">Price - {{ product.price }}</p>
             <a href="{% url 'cart:cart_add' product.id %}" class="btn btn-primary">Buy Now</a>
-            <a href="{% url 'products:remove_from_favourite' user.id product.id %}" class="btn btn-danger">Dislike</a>
+            <a href="{% url 'products:remove_from_favourite' user_id=user.id product_id=product.id next=request.path|urlencode %}"
+               class="btn btn-danger">Dislike</a>
 
         </div>
     </div>
