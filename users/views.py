@@ -1,8 +1,8 @@
 from django.contrib.auth import authenticate, login
 from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import User
-from .forms import UserRegistrationForm, UserLoginForm
+from .forms import UserRegistrationForm, UserLoginForm, UserEditForm
 from django.contrib.auth import logout
 from mycart.views import get_cart_size
 
@@ -29,6 +29,22 @@ def user_registration_page(request):
     else:
         user_form = UserRegistrationForm()
     return render(request, template, {'user_form': user_form})
+
+
+def user_edit_page(request, user_id):
+    template = "users/edit_profile.html"
+    if request.method == 'POST':
+        user_form = UserEditForm(request.POST)
+        if user_form.is_valid():
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.save()
+            return redirect('users:profile')
+        return HttpResponse(user_form.errors)
+    else:
+        user = get_object_or_404(User, id=user_id)
+        user_form = UserEditForm(instance=user)
+    return render(request, template, {'user_edit_form': user_form})
 
 
 def user_login_page(request):

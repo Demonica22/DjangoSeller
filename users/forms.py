@@ -1,5 +1,7 @@
 from django.contrib.auth.forms import forms
 from django.core.validators import EmailValidator
+from phonenumber_field.formfields import PhoneNumberField
+from phonenumber_field.validators import validate_international_phonenumber
 
 from .models import User
 
@@ -23,3 +25,10 @@ class UserRegistrationForm(forms.ModelForm):
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Passwords don\'t match.')
         return cd['password2']
+
+
+class UserEditForm(forms.ModelForm):
+    mobile = PhoneNumberField(validators=[validate_international_phonenumber])
+    class Meta:
+        model = User
+        fields = ['email', 'first_name', 'last_name']
