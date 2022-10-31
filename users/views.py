@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from .models import User
 from .forms import UserRegistrationForm, UserLoginForm
 from django.contrib.auth import logout
+from mycart.views import get_cart_size
 
 
 def user_profile_page(request, user_id):
@@ -12,7 +13,7 @@ def user_profile_page(request, user_id):
         user = User.objects.get(pk=user_id)
     except User.DoesNotExist:
         raise Http404("User does not exist")
-    return render(request, template, {'user': user})
+    return render(request, template, {'user': user, 'cart_size': get_cart_size(request)})
 
 
 def user_registration_page(request):
@@ -50,5 +51,3 @@ def user_login_page(request):
 def user_logout_page(request):
     logout(request)
     return redirect('products:base')
-
-

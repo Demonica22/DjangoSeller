@@ -6,13 +6,21 @@ from products.models import Product
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 
+
+def get_cart_size(request):
+    items = Cart(request).cart.items()
+    quantity = 0
+    for item in items:
+        quantity += item[1]["quantity"]
+    return quantity
+
+
 @login_required()
 def cart_add(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
     cart.add(product=product)
-    print(request.session.values())
-    return redirect("/products")
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required()
@@ -20,7 +28,7 @@ def item_clear(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
     cart.remove(product)
-    return redirect("cart_detail")
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required()
@@ -28,7 +36,7 @@ def item_increment(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
     cart.add(product=product)
-    return redirect("cart_detail")
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required()
@@ -40,16 +48,16 @@ def item_decrement(request, id):
         if value["quantity"] <= 0:
             product = Product.objects.get(id=value['product_id'])
             cart.remove(product)
-    return redirect("cart:cart_detail")
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required()
 def cart_clear(request):
     cart = Cart(request)
     cart.clear()
-    return redirect("cart_detail")
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required()
 def cart_detail(request):
-    return render(request, 'mycart/cart_detail.html')
+    return render(request, 'mycart/cart_detail.html', context={'cart_size': get_cart_size(request)})

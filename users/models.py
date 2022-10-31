@@ -14,7 +14,7 @@ class User(AbstractUser):
     mobile = PhoneNumberField(null=False, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
-    favourite_products = models.ManyToManyField(Product, default=None,blank=True)
+    favourite_products = models.ManyToManyField(Product, default=None, blank=True)
 
     is_staff = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
@@ -39,4 +39,7 @@ class User(AbstractUser):
         """
         return self.first_name
 
-
+    @property
+    def get_favourite_products(self):
+        favourite_products = Product.objects.prefetch_related().filter(user=self.id)
+        return favourite_products
