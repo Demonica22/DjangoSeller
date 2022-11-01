@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'products/style.css' %}">
+{% endblock %}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-{% load static %}
-<link rel="stylesheet" href="{% static 'products/style.css' %}">
+
 <head>
     <div class="topnav">
         <a class="left" href="{% url 'products:base' %}"> Products</a>
@@ -13,38 +16,39 @@
             <a class="right" href="{% url 'products:favourite' user_id=user.id %}"> Favourite</a>
         {% else %}
             <a class="right" href="{% url 'users:login' %}"> Login</a>
-
         {% endif %}
     </div>
 </head>
 
 
-<body>
-<div style=" display: grid ; grid-template-columns: 1fr 1fr 1fr; grid-gap: 10px">
-    {% for product in all_products_list %}
-        <div class="card" style="box-shadow: rgba(0 , 0 , 0 , 0.35) 0px 0px 5px 5px; padding: 10px 10px">
-            <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
-            <div class="card-body" style="display: flex; flex-direction: column">
-                <a href="{% url 'products:detail' product.id %}" class="fill-div"> {{ product.name }}</a>
-                <p class="card-text">{{ product.description }}</p>
-                <p class="card-text">Price - {{ product.price }}</p>
-                <div class="buttons" style="display: grid ; grid-gap: 5px">
-                    <a href="{% url 'cart:cart_add' product.id %}" class="btn btn-primary">Buy Now</a>
-                    {% if user.is_authenticated %}
-                        {% if product in user.get_favourite_products %}
-                            <a href="{% url 'products:remove_from_favourite' user_id=user.id product_id=product.id %}"
-                               class="btn btn-danger">
-                                &#128148;</a>
-                        {% else %}
-                            <a href="{% url 'products:add_to_favourite' user_id=user.id product_id=product.id %}"
-                               class="btn btn-success">
-                                &#9825;</a>
+<body >
+    <div class="wrapper">
+         {% for product in all_products_list %}
+            <div class="card">
+                <img class="card-image" src="{{ product.image.url }}" alt="Card image cap">
+                <div class="card-titles" >
+                    <a href="{% url 'products:detail' product.id %}" class="fill-div"> {{ product.name }}</a>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text">Price - {{ product.price }}</p>
+                    <div class="buttons" style="display: grid ; grid-gap: 5px">
+                        <a href="{% url 'cart:cart_add' product.id %}" class="btn btn-primary">Buy Now</a>
+                        {% if user.is_authenticated %}
+                            {% if product in user.get_favourite_products %}
+                                <a href="{% url 'products:remove_from_favourite' user_id=user.id product_id=product.id %}"
+                                   class="btn btn-danger">
+                                    &#128148;</a>
+                            {% else %}
+                                <a href="{% url 'products:add_to_favourite' user_id=user.id product_id=product.id %}"
+                                   class="btn btn-success">
+                                    &#9825;</a>
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
-</div>
+        {% endfor %}
+
+    </div>
+
 </body>
 </html>
