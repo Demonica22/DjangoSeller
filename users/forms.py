@@ -18,7 +18,7 @@ class UserRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'password', 'password2')
+        fields = ('email', 'first_name', 'last_name', 'mobile', 'password', 'password2')
 
     def clean_password2(self):
         cd = self.cleaned_data
@@ -29,6 +29,7 @@ class UserRegistrationForm(forms.ModelForm):
 
 class UserEditForm(forms.ModelForm):
     mobile = PhoneNumberField(validators=[validate_international_phonenumber])
+
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name']
+        fields = ['first_name', 'last_name', 'mobile']

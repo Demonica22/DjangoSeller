@@ -8,9 +8,24 @@
 {% block content %}
 
     <p>Please, change your profile using the following form:</p>
-    <form action="./profile" method="post">
-        {{ user_edit_form.as_p }}
+    <form method="post">
         {% csrf_token %}
+        <table>
+
+            <tr>
+                <td>{{ user_edit_form.first_name.tag }}</td>
+                <td>{{ user_edit_form.first_name }}</td>
+            </tr>
+
+            <tr>
+                <td>{{ user_edit_form.last_name.tag }}</td>
+                <td>{{ user_edit_form.last_name }}</td>
+            </tr>
+            <tr>
+                <td>{{ user_edit_form.mobile.tag }}</td>
+                <td>{{ user_edit_form.mobile }}</td>
+            </tr>
+        </table>
         <p><input type="submit" value="Submit"></p>
     </form>
 {% endblock %}
