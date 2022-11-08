@@ -73,11 +73,10 @@ def user_login_page(request):
             if user is not None:
                 login(request, user)
                 return redirect("products:base")
-            else:
-                return HttpResponse('Invalid login')
-
+            form.add_error("email", "Your password or email doesn't match")
     else:
         form = UserLoginForm()
+    print(form.errors)
     return render(request, 'users/login.html', {'form': form})
 
 
